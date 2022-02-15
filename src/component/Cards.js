@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import Card from "./Card";
 
 const Cards = () => {
-  const [images, setImages] = useState({});
+  const [images, setImages] = useState([]);
 
   const peticion = async () => {
     const res = await fetch(
-      "https://api.unsplash.com/photos/random/?client_id=ZYRLj7ZrlGTA2w6S1SOu_THQRZQvmTA4IlJMk-2rVQ0"
+      "https://api.unsplash.com/photos/?client_id=ZYRLj7ZrlGTA2w6S1SOu_THQRZQvmTA4IlJMk-2rVQ0"
     );
 
     const data = await res.json();
@@ -22,7 +22,9 @@ const Cards = () => {
 
   return (
     <div className="cards">
-      <Card img={images.urls.regular} />
+      {images.map((img) => {
+        return <Card key={img.id} img={img.urls.regular} />;
+      })}
     </div>
   );
 };
