@@ -1,14 +1,16 @@
-import React from 'react'
-import Container  from './component/Container';
+import React from "react";
+import Container from "./component/Container";
+import Footer from "./component/Footer,";
+import Header from "./component/Header";
 
 const App = () => {
   return (
     <div>
-    <h1>Gallery</h1>
-    <Container/>
-    
+      <Header />
+      <Container />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default App;
