@@ -1,10 +1,13 @@
 import { cleanup } from "@testing-library/react";
 import React, { useCallback, useEffect, useState } from "react";
 import Card from "./Card";
+import Loading from "./Loading";
 
 const Cards = () => {
   const [images, setImages] = useState([]);
   const [input, setInput] = useState("");
+
+  const [loading, setLoading] = useState(true);
 
   const peticion = useCallback(async () => {
     const key = "client_id=ZYRLj7ZrlGTA2w6S1SOu_THQRZQvmTA4IlJMk-2rVQ0";
@@ -17,6 +20,8 @@ const Cards = () => {
       )}&${key}`;
     }
 
+    setLoading(true);
+
     let res = await fetch(route);
 
     const data = await res.json();
@@ -26,6 +31,7 @@ const Cards = () => {
     } else {
       setImages(data);
     }
+    setLoading(false);
   }, [input]);
 
   useEffect(() => {
@@ -40,7 +46,7 @@ const Cards = () => {
   };
 
   return (
-    <div className="cards">
+    <div className="cards text-center">
       <hr />
       <form onSubmit={handleSubmit}>
         <label className="w-75">
@@ -51,6 +57,8 @@ const Cards = () => {
         </button>
       </form>
       <hr />
+
+      {loading && <Loading />}
       <div className="row">
         {images.map((img) => {
           return (
